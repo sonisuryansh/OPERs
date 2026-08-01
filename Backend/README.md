@@ -184,3 +184,86 @@ Send the body as **raw JSON** in Postman.
 2. Enter `http://localhost:3000/user/login`.
 3. Under **Body**, choose **raw** and select **JSON**.
 4. Paste the required request body above and click **Send**.
+
+## Get user profile
+
+Returns the current authenticated user profile.
+
+### Endpoint
+
+```http
+GET /user/profile
+```
+
+When running the server locally on port `3000`, use:
+
+```text
+http://localhost:3000/user/profile
+```
+
+### Headers
+
+```http
+Authorization: Bearer <jwt-token>
+```
+
+### Status codes
+
+| Status code | Meaning | When it is returned |
+| --- | --- | --- |
+| `200 OK` | Profile returned | Valid auth token and user exists. |
+| `401 Unauthorized` | Authentication failed | Missing or invalid token. |
+| `500 Internal Server Error` | Server error | Database or server failure. |
+
+### Successful response (`200`)
+
+```json
+{
+  "user": {
+    "_id": "<user-id>",
+    "fullname": {
+      "firstname": "Test",
+      "lastname": "User"
+    },
+    "email": "test@example.com"
+  }
+}
+```
+
+## Logout user
+
+Invalidates the current authentication token and clears the token cookie.
+
+### Endpoint
+
+```http
+GET /user/logout
+```
+
+When running the server locally on port `3000`, use:
+
+```text
+http://localhost:3000/user/logout
+```
+
+### Headers
+
+```http
+Authorization: Bearer <jwt-token>
+```
+
+### Status codes
+
+| Status code | Meaning | When it is returned |
+| --- | --- | --- |
+| `200 OK` | Logout successful | Token is added to blacklist and cookie cleared. |
+| `401 Unauthorized` | Authentication failed | Missing or invalid token. |
+| `500 Internal Server Error` | Server error | Database or server failure. |
+
+### Successful response (`200`)
+
+```json
+{
+  "message": "Logged out successfully"
+}
+```
