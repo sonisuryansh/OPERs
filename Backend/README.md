@@ -267,3 +267,184 @@ Authorization: Bearer <jwt-token>
   "message": "Logged out successfully"
 }
 ```
+
+---
+
+# Captain API & Module Documentation
+
+This section documents all endpoints, data models, services, and controller logic related to **Captain** (Driver) management.
+
+## Architectural Overview
+
+The Captain module follows a layered Node.js/Express architecture:
+
+```
+                  ┌──────────────────────┐
+                  │    HTTP Request      │
+                  └──────────┬───────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────┐
+│ [app.js] Mounts '/captain' router                      │
+└────────────────────────────┬────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────┐
+│ [captain.routes.js] express-validator request checks    │
+└────────────────────────────┬────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────┐
+│ [captain.controller.js] Handles HTTP req/res & auth JWT │
+└────────────────────────────┬────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────┐
+│ [captain.service.js] Business logic & DB object creation│
+└────────────────────────────┬────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────┐
+│ [captain.model.js] Mongoose schema & auth methods       │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Register a Captain
+
+Creates a new Captain account with vehicle details, hashes the password, creates the DB record, and returns a JWT auth token.
+
+### Endpoint
+
+```http
+POST /captain/register
+```
+
+When running the server locally on port `3000`, use:
+
+```text
+http://localhost:3000/captain/register
+```
+
+### Headers
+
+```http
+Content-Type: application/json
+```
+
+### Required Request Body
+
+Send the body as **raw JSON** in Postman or cURL:
+
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "captain@example.com",
+  "password": "password123",
+  "vehicleColor": "Black",
+  "vehiclePlateNumber": "NY-1234",
+  "vehicleCapacity": 4,
+  "vehicleType": "car"
+}
+```
+
+### Body Parameter Validation Rules
+
+| Field | Type | Required | Validation Rules |
+| --- | --- | --- | --- |
+| `fullname.firstname` | string | Yes | At least 3 characters long |
+| `fullname.lastname` | string | No | At least 3 characters long (if provided) |
+| `email` | string | Yes | Must be a valid email format (`/\S+@\S+\.\S+/`), unique in DB |
+| `password` | string | Yes | Minimum 6 characters long |
+| `vehicleColor` | string | Yes | Cannot be empty, minimum 3 characters long |
+| `vehiclePlateNumber` | string | Yes | Cannot be empty, minimum 3 characters long |
+| `vehicleCapacity` | integer | Yes | Integer greater than or equal to 1 |
+| `vehicleType` | string | Yes | Allowed enum values: `["car", "bike", "auto", "van"]` |
+
+---
+
+### Response Status Codes
+
+| Status Code | Meaning | Cause / Description |
+| --- | --- | --- |
+| `201 Created` | Captain registered successfully | Database document created and JWT returned |
+| `400 Bad Request` | Validation or duplication error | Input fails validation or email already exists |
+| `500 Internal Server Error` | Server error | Database connection failure or runtime exception |
+
+### Successful Response (`201 Created`)
+
+```json
+{
+  "message": "Captain registered successfully",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+### Validation Error Response (`400 Bad Request`)
+
+```json
+{
+  "errors": [
+    {
+      "type": "field",
+      "value": "invalid-email",
+      "msg": "Invalid email address",
+      "path": "email",
+      "location": "body"
+    }
+  ]
+}
+```
+
+### Duplicate Email Response (`400 Bad Request`)
+
+```json
+{
+  "message": "Captain with this email already exists"
+}
+```
+
+---
+
+## Technical File Reference
+
+### 1. Model: `models/captain.model.js`
+- **Mongoose Schema**: `captainSchema`
+- **Fields**:
+  - `fullname`: `{ firstname: String, lastname: String }`
+  - `email`: `String` (lowercase, unique, indexed)
+  - `password`: `String` (hidden by default via `select: false`)
+  - `sockerId`: `String` (Socket.io connection ID for real-time tracking)
+  - `status`: `String` (enum: `['active', 'inactive']`, default: `'inactive'`)
+  - `vehicle`: `{ color: String, plateNumber: String, capacity: Number, vehicleType: String }`
+  - `location`: `{ latitude: Number, longitude: Number }` (Geolocation tracking)
+- **Methods & Statics**:
+  - `generateAuthToken()`: Returns a JWT signed with `process.env.JWT_SECRET` (24h expiry).
+  - `comparePassword(password)`: Asynchronously compares input password with stored bcrypt hash.
+  - `hashPassword(password)`: Static helper to hash passwords using bcrypt (10 rounds).
+
+### 2. Service: `services/captain.service.js`
+- `registerCaptain(options)`: Accepts destructured properties (`firstname`, `lastname`, `email`, `password`, `vehicleColor`, `vehiclePlateNumber`, `vehicleCapacity`, `vehicleType`). Performs strict null checks and creates the document in MongoDB via `captainModel.create()`.
+
+### 3. Controller: `controllers/captain.controller.js`
+- `registerCaptain(req, res)`:
+  1. Evaluates express-validator results.
+  2. Verifies if email already exists in DB (`captainModel.findOne`).
+  3. Hashes the password using `bcrypt.hash`.
+  4. Calls `captainService.registerCaptain()`.
+  5. Generates a signed JWT token (`expiresIn: '1h'`).
+  6. Sends HTTP 201 with success message and JWT token.
+
+### 4. Routes: `routes/captain.routes.js`
+- Defines `POST /register` with inline validation middleware using `express-validator`.
+
+### 5. Application Entry: `app.js`
+- Mounts Captain routes:
+  ```js
+  app.use('/captain', captainRoutes);
+  ```
+

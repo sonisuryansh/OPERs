@@ -1,0 +1,66 @@
+{
+  "id": "tr_0e1406ba",
+  "parentTraceId": null,
+  "correlationId": "tr_0e1406ba",
+  "method": "POST",
+  "route": "/captain/register",
+  "status": 500,
+  "timestamp": "2026-08-03T16:55:54.224Z",
+  "clientIP": "::1",
+  "headers": {
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.56.0",
+    "accept": "*/*",
+    "cache-control": "no-cache",
+    "postman-token": "********",
+    "host": "localhost:3001",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "content-length": "268"
+  },
+  "body": null,
+  "response": null,
+  "execution": [
+    "Express",
+    "Router",
+    "Middleware",
+    "Response"
+  ],
+  "stagePayloads": {
+    "Client": null,
+    "Router": null,
+    "Middleware": null
+  },
+  "stageDiffs": [
+    {
+      "fromStage": "Client",
+      "toStage": "Router",
+      "diff": {
+        "added": {},
+        "modified": {},
+        "removed": {}
+      }
+    },
+    {
+      "fromStage": "Router",
+      "toStage": "Middleware",
+      "diff": {
+        "added": {},
+        "modified": {},
+        "removed": {}
+      }
+    }
+  ],
+  "logs": [],
+  "timing": {
+    "express": 0,
+    "router": 0,
+    "middleware": 14,
+    "total": 90
+  },
+  "memory": 24,
+  "cpu": 16,
+  "performanceFlags": [],
+  "error": null,
+  "markdown": "# Request #tr_0e1406ba\n\n**Method**: POST  \n**Route**: /captain/register  \n**Status**: 500 Error  \n**Timestamp**: 2026-08-03T16:55:54.224Z  \n**Client IP**: ::1  \n\n## Execution Tree\n```text\n✔ Express\n✔ Router\n✔ Middleware\n✔ Response\n```\n\n## Data Payload Snapshot\n```json\n{}\n```\n\n## Response Payload Snapshot\n```json\n{}\n```\n\n## Performance Telemetry\n- **Total Latency**: 90 ms  \n- **Memory**: 24 MB  \n- **CPU**: 16%  \n\n### Stage Breakdown\n- **express**: 0 ms\n- **router**: 0 ms\n- **middleware**: 14 ms\n- **total**: 90 ms\n\n## Backend Logs\nNone\n\n## Errors\nNone\n"
+}

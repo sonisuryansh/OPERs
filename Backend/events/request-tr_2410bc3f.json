@@ -1,0 +1,69 @@
+{
+  "id": "tr_2410bc3f",
+  "parentTraceId": null,
+  "correlationId": "tr_2410bc3f",
+  "method": "POST",
+  "route": "/captain/register",
+  "status": 201,
+  "timestamp": "2026-08-03T17:00:10.076Z",
+  "clientIP": "::1",
+  "headers": {
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.56.0",
+    "accept": "*/*",
+    "cache-control": "no-cache",
+    "postman-token": "********",
+    "host": "localhost:3001",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "content-length": "268"
+  },
+  "body": null,
+  "response": {
+    "message": "Captain registered successfully",
+    "token": "********"
+  },
+  "execution": [
+    "Express",
+    "Router",
+    "Middleware",
+    "Response"
+  ],
+  "stagePayloads": {
+    "Client": null,
+    "Router": null,
+    "Middleware": null
+  },
+  "stageDiffs": [
+    {
+      "fromStage": "Client",
+      "toStage": "Router",
+      "diff": {
+        "added": {},
+        "modified": {},
+        "removed": {}
+      }
+    },
+    {
+      "fromStage": "Router",
+      "toStage": "Middleware",
+      "diff": {
+        "added": {},
+        "modified": {},
+        "removed": {}
+      }
+    }
+  ],
+  "logs": [],
+  "timing": {
+    "express": 0,
+    "router": 1,
+    "middleware": 14,
+    "total": 107
+  },
+  "memory": 23.5,
+  "cpu": 0,
+  "performanceFlags": [],
+  "error": null,
+  "markdown": "# Request #tr_2410bc3f\n\n**Method**: POST  \n**Route**: /captain/register  \n**Status**: 201 OK  \n**Timestamp**: 2026-08-03T17:00:10.076Z  \n**Client IP**: ::1  \n\n## Execution Tree\n```text\n✔ Express\n✔ Router\n✔ Middleware\n✔ Response\n```\n\n## Data Payload Snapshot\n```json\n{}\n```\n\n## Response Payload Snapshot\n```json\n{\n  \"message\": \"Captain registered successfully\",\n  \"token\": \"********\"\n}\n```\n\n## Performance Telemetry\n- **Total Latency**: 107 ms  \n- **Memory**: 23.5 MB  \n- **CPU**: 0%  \n\n### Stage Breakdown\n- **express**: 0 ms\n- **router**: 1 ms\n- **middleware**: 14 ms\n- **total**: 107 ms\n\n## Backend Logs\nNone\n\n## Errors\nNone\n"
+}

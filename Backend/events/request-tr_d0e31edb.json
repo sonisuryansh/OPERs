@@ -1,0 +1,93 @@
+{
+  "id": "tr_d0e31edb",
+  "parentTraceId": null,
+  "correlationId": "tr_d0e31edb",
+  "method": "POST",
+  "route": "/captain/register",
+  "status": 400,
+  "timestamp": "2026-08-03T16:52:49.029Z",
+  "clientIP": "::1",
+  "headers": {
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.56.0",
+    "accept": "*/*",
+    "cache-control": "no-cache",
+    "postman-token": "********",
+    "host": "localhost:3001",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "content-length": "299"
+  },
+  "body": null,
+  "response": {
+    "errors": [
+      {
+        "type": "field",
+        "msg": "Vehicle color is required",
+        "path": "vehicleColor",
+        "location": "body"
+      },
+      {
+        "type": "field",
+        "msg": "Vehicle plate number is required",
+        "path": "vehiclePlateNumber",
+        "location": "body"
+      },
+      {
+        "type": "field",
+        "msg": "Vehicle capacity must be at least 1",
+        "path": "vehicleCapacity",
+        "location": "body"
+      },
+      {
+        "type": "field",
+        "msg": "Invalid vehicle type",
+        "path": "vehicleType",
+        "location": "body"
+      }
+    ]
+  },
+  "execution": [
+    "Express",
+    "Router",
+    "Middleware",
+    "Response"
+  ],
+  "stagePayloads": {
+    "Client": null,
+    "Router": null,
+    "Middleware": null
+  },
+  "stageDiffs": [
+    {
+      "fromStage": "Client",
+      "toStage": "Router",
+      "diff": {
+        "added": {},
+        "modified": {},
+        "removed": {}
+      }
+    },
+    {
+      "fromStage": "Router",
+      "toStage": "Middleware",
+      "diff": {
+        "added": {},
+        "modified": {},
+        "removed": {}
+      }
+    }
+  ],
+  "logs": [],
+  "timing": {
+    "express": 0,
+    "router": 0,
+    "middleware": 21,
+    "total": 31
+  },
+  "memory": 28.9,
+  "cpu": 0,
+  "performanceFlags": [],
+  "error": null,
+  "markdown": "# Request #tr_d0e31edb\n\n**Method**: POST  \n**Route**: /captain/register  \n**Status**: 400 Error  \n**Timestamp**: 2026-08-03T16:52:49.029Z  \n**Client IP**: ::1  \n\n## Execution Tree\n```text\n✔ Express\n✔ Router\n✔ Middleware\n✔ Response\n```\n\n## Data Payload Snapshot\n```json\n{}\n```\n\n## Response Payload Snapshot\n```json\n{\n  \"errors\": [\n    {\n      \"type\": \"field\",\n      \"msg\": \"Vehicle color is required\",\n      \"path\": \"vehicleColor\",\n      \"location\": \"body\"\n    },\n    {\n      \"type\": \"field\",\n      \"msg\": \"Vehicle plate number is required\",\n      \"path\": \"vehiclePlateNumber\",\n      \"location\": \"body\"\n    },\n    {\n      \"type\": \"field\",\n      \"msg\": \"Vehicle capacity must be at least 1\",\n      \"path\": \"vehicleCapacity\",\n      \"location\": \"body\"\n    },\n    {\n      \"type\": \"field\",\n      \"msg\": \"Invalid vehicle type\",\n      \"path\": \"vehicleType\",\n      \"location\": \"body\"\n    }\n  ]\n}\n```\n\n## Performance Telemetry\n- **Total Latency**: 31 ms  \n- **Memory**: 28.9 MB  \n- **CPU**: 0%  \n\n### Stage Breakdown\n- **express**: 0 ms\n- **router**: 0 ms\n- **middleware**: 21 ms\n- **total**: 31 ms\n\n## Backend Logs\nNone\n\n## Errors\nNone\n"
+}

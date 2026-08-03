@@ -1,0 +1,68 @@
+{
+  "id": "tr_a318fda5",
+  "parentTraceId": null,
+  "correlationId": "tr_a318fda5",
+  "method": "POST",
+  "route": "/captain/register",
+  "status": 400,
+  "timestamp": "2026-08-03T17:00:57.923Z",
+  "clientIP": "::1",
+  "headers": {
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.56.0",
+    "accept": "*/*",
+    "cache-control": "no-cache",
+    "postman-token": "********",
+    "host": "localhost:3001",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "content-length": "268"
+  },
+  "body": null,
+  "response": {
+    "message": "Captain with this email already exists"
+  },
+  "execution": [
+    "Express",
+    "Router",
+    "Middleware",
+    "Response"
+  ],
+  "stagePayloads": {
+    "Client": null,
+    "Router": null,
+    "Middleware": null
+  },
+  "stageDiffs": [
+    {
+      "fromStage": "Client",
+      "toStage": "Router",
+      "diff": {
+        "added": {},
+        "modified": {},
+        "removed": {}
+      }
+    },
+    {
+      "fromStage": "Router",
+      "toStage": "Middleware",
+      "diff": {
+        "added": {},
+        "modified": {},
+        "removed": {}
+      }
+    }
+  ],
+  "logs": [],
+  "timing": {
+    "express": 0,
+    "router": 0,
+    "middleware": 17,
+    "total": 42
+  },
+  "memory": 24.2,
+  "cpu": 0,
+  "performanceFlags": [],
+  "error": null,
+  "markdown": "# Request #tr_a318fda5\n\n**Method**: POST  \n**Route**: /captain/register  \n**Status**: 400 Error  \n**Timestamp**: 2026-08-03T17:00:57.923Z  \n**Client IP**: ::1  \n\n## Execution Tree\n```text\n✔ Express\n✔ Router\n✔ Middleware\n✔ Response\n```\n\n## Data Payload Snapshot\n```json\n{}\n```\n\n## Response Payload Snapshot\n```json\n{\n  \"message\": \"Captain with this email already exists\"\n}\n```\n\n## Performance Telemetry\n- **Total Latency**: 42 ms  \n- **Memory**: 24.2 MB  \n- **CPU**: 0%  \n\n### Stage Breakdown\n- **express**: 0 ms\n- **router**: 0 ms\n- **middleware**: 17 ms\n- **total**: 42 ms\n\n## Backend Logs\nNone\n\n## Errors\nNone\n"
+}

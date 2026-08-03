@@ -1,0 +1,122 @@
+{
+  "id": "tr_b5e603b9",
+  "parentTraceId": null,
+  "correlationId": "tr_b5e603b9",
+  "method": "GET",
+  "route": "/user/profile",
+  "status": 200,
+  "timestamp": "2026-08-02T07:25:17.770Z",
+  "clientIP": "::1",
+  "headers": {
+    "user-agent": "PostmanRuntime/7.56.0",
+    "accept": "*/*",
+    "cache-control": "no-cache",
+    "postman-token": "********",
+    "host": "localhost:3001",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive",
+    "cookie": "********"
+  },
+  "body": null,
+  "response": {
+    "user": {
+      "$__": {
+        "activePaths": {
+          "paths": {
+            "password": "********",
+            "email": "init",
+            "fullname.firstname": "init",
+            "_id": "init",
+            "fullname.lastname": "init",
+            "__v": "init"
+          },
+          "states": {
+            "require": {
+              "password": "********"
+            },
+            "init": {
+              "_id": true,
+              "fullname.firstname": true,
+              "fullname.lastname": true,
+              "email": true,
+              "__v": true
+            }
+          }
+        },
+        "skipId": true,
+        "selected": {
+          "password": "********"
+        },
+        "exclude": true
+      },
+      "$isNew": false,
+      "_doc": {
+        "fullname": {
+          "firstname": "test-first-name",
+          "lastname": "test-last-name"
+        },
+        "_id": {
+          "buffer": {
+            "0": 106,
+            "1": 101,
+            "2": 165,
+            "3": 183,
+            "4": 81,
+            "5": 164,
+            "6": 250,
+            "7": 44,
+            "8": 151,
+            "9": 196,
+            "10": 166,
+            "11": 61
+          }
+        },
+        "email": "test@gmail.com",
+        "__v": 0
+      }
+    }
+  },
+  "execution": [
+    "Express",
+    "Router",
+    "Controller",
+    "Response"
+  ],
+  "stagePayloads": {
+    "Client": null,
+    "Router": null,
+    "Controller": null
+  },
+  "stageDiffs": [
+    {
+      "fromStage": "Client",
+      "toStage": "Router",
+      "diff": {
+        "added": {},
+        "modified": {},
+        "removed": {}
+      }
+    },
+    {
+      "fromStage": "Router",
+      "toStage": "Controller",
+      "diff": {
+        "added": {},
+        "modified": {},
+        "removed": {}
+      }
+    }
+  ],
+  "logs": [],
+  "timing": {
+    "express": 0,
+    "router": 1,
+    "controller": 3,
+    "total": 21
+  },
+  "memory": 23.1,
+  "cpu": 0,
+  "performanceFlags": [],
+  "error": null,
+  "markdown": "# Request #tr_b5e603b9\n\n**Method**: GET  \n**Route**: /user/profile  \n**Status**: 200 OK  \n**Timestamp**: 2026-08-02T07:25:17.770Z  \n**Client IP**: ::1  \n\n## Execution Tree\n```text\n✔ Express\n✔ Router\n✔ Controller\n✔ Response\n```\n\n## Data Payload Snapshot\n```json\n{}\n```\n\n## Response Payload Snapshot\n```json\n{\n  \"user\": {\n    \"$__\": {\n      \"activePaths\": {\n        \"paths\": {\n          \"password\": \"********\",\n          \"email\": \"init\",\n          \"fullname.firstname\": \"init\",\n          \"_id\": \"init\",\n          \"fullname.lastname\": \"init\",\n          \"__v\": \"init\"\n        },\n        \"states\": {\n          \"require\": {\n            \"password\": \"********\"\n          },\n          \"init\": {\n            \"_id\": true,\n            \"fullname.firstname\": true,\n            \"fullname.lastname\": true,\n            \"email\": true,\n            \"__v\": true\n          }\n        }\n      },\n      \"skipId\": true,\n      \"selected\": {\n        \"password\": \"********\"\n      },\n      \"exclude\": true\n    },\n    \"$isNew\": false,\n    \"_doc\": {\n      \"fullname\": {\n        \"firstname\": \"test-first-name\",\n        \"lastname\": \"test-last-name\"\n      },\n      \"_id\": {\n        \"buffer\": {\n          \"0\": 106,\n          \"1\": 101,\n          \"2\": 165,\n          \"3\": 183,\n          \"4\": 81,\n          \"5\": 164,\n          \"6\": 250,\n          \"7\": 44,\n          \"8\": 151,\n          \"9\": 196,\n          \"10\": 166,\n          \"11\": 61\n        }\n      },\n      \"email\": \"test@gmail.com\",\n      \"__v\": 0\n    }\n  }\n}\n```\n\n## Performance Telemetry\n- **Total Latency**: 21 ms  \n- **Memory**: 23.1 MB  \n- **CPU**: 0%  \n\n### Stage Breakdown\n- **express**: 0 ms\n- **router**: 1 ms\n- **controller**: 3 ms\n- **total**: 21 ms\n\n## Backend Logs\nNone\n\n## Errors\nNone\n"
+}

@@ -1,0 +1,54 @@
+{
+  "id": "tr_620a9855",
+  "parentTraceId": null,
+  "correlationId": "tr_620a9855",
+  "method": "GET",
+  "route": "/user/profile",
+  "status": 401,
+  "timestamp": "2026-08-02T06:49:23.492Z",
+  "clientIP": "::1",
+  "headers": {
+    "user-agent": "PostmanRuntime/7.56.0",
+    "accept": "*/*",
+    "cache-control": "no-cache",
+    "postman-token": "********",
+    "host": "localhost:3001",
+    "accept-encoding": "gzip, deflate, br",
+    "connection": "keep-alive"
+  },
+  "body": null,
+  "response": {
+    "message": "Access Denied"
+  },
+  "execution": [
+    "Express",
+    "Router",
+    "Response"
+  ],
+  "stagePayloads": {
+    "Client": null,
+    "Router": null
+  },
+  "stageDiffs": [
+    {
+      "fromStage": "Client",
+      "toStage": "Router",
+      "diff": {
+        "added": {},
+        "modified": {},
+        "removed": {}
+      }
+    }
+  ],
+  "logs": [],
+  "timing": {
+    "express": 0,
+    "router": 2,
+    "total": 5
+  },
+  "memory": 23.4,
+  "cpu": 0,
+  "performanceFlags": [],
+  "error": null,
+  "markdown": "# Request #tr_620a9855\n\n**Method**: GET  \n**Route**: /user/profile  \n**Status**: 401 Error  \n**Timestamp**: 2026-08-02T06:49:23.492Z  \n**Client IP**: ::1  \n\n## Execution Tree\n```text\n✔ Express\n✔ Router\n✔ Response\n```\n\n## Data Payload Snapshot\n```json\n{}\n```\n\n## Response Payload Snapshot\n```json\n{\n  \"message\": \"Access Denied\"\n}\n```\n\n## Performance Telemetry\n- **Total Latency**: 5 ms  \n- **Memory**: 23.4 MB  \n- **CPU**: 0%  \n\n### Stage Breakdown\n- **express**: 0 ms\n- **router**: 2 ms\n- **total**: 5 ms\n\n## Backend Logs\nNone\n\n## Errors\nNone\n"
+}
