@@ -93,3 +93,10 @@ public/uploads/
 # Misc
 # =========================
 *.local
+
+# =========================
+# Telemetry & Trace Logs (SuriLens)
+# =========================
+events/
+**/events/
+.surilens/
