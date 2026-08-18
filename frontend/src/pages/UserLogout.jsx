@@ -1,25 +1,41 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 export const UserLogout = () => {
-
     const token = localStorage.getItem('token')
     const navigate = useNavigate()
 
-    axios.get(`${import.meta.env.VITE_API_URL}/users/logout`, {
-        headers: {
-            Authorization: `Bearer ${token}`
+    useEffect(() => {
+        const logout = async () => {
+            try {
+                if (token) {
+                    await axios.get(`${import.meta.env.VITE_BASE_URL}/users/logout`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
+                }
+            } catch (err) {
+                console.error('Logout error:', err)
+            } finally {
+                localStorage.removeItem('token')
+                navigate('/login')
+            }
         }
-    }).then((response) => {
-        if (response.status === 200) {
-            localStorage.removeItem('token')
-            navigate('/login')
-        }
-    })
+        logout()
+    }, [token, navigate])
 
     return (
-        <div>UserLogout</div>
+        <div className='min-h-screen bg-slate-900 flex items-center justify-center text-white'>
+            <div className='flex items-center gap-3'>
+                <svg className="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                </svg>
+                <span>Logging out...</span>
+            </div>
+        </div>
     )
 }
 

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 70" width="100%" height="100%">
+  <defs>
+    <linearGradient id="carBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="70%" stop-color="#e2e8f0"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+    <linearGradient id="carGlass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="wheelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="carShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="60" cy="58" rx="50" ry="6" fill="#000000" opacity="0.2" />
+
+  <!-- Car Group -->
+  <g filter="url(#carShadow)">
+    <!-- Car Roof and Cabin -->
+    <path d="M 28 32 C 34 20, 42 15, 56 15 L 74 15 C 84 15, 90 22, 94 32 Z" fill="#0f172a" />
+    <path d="M 32 31 C 37 21, 44 17, 56 17 L 72 17 C 81 17, 86 23, 89 31 Z" fill="url(#carGlass)" opacity="0.85" />
+    <!-- Window pillar -->
+    <line x1="60" y1="17" x2="60" y2="31" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Car Body -->
+    <path d="M 8 40 C 8 35, 14 32, 26 32 L 95 32 C 106 32, 114 36, 114 42 C 114 48, 110 50, 104 50 L 14 50 C 9 50, 8 46, 8 40 Z" fill="url(#carBody)" stroke="#94a3b8" stroke-width="0.8" />
+
+    <!-- Headlight -->
+    <path d="M 8 38 C 12 38, 15 41, 15 44 L 8 44 Z" fill="#fbbf24" />
+    <!-- Taillight -->
+    <path d="M 114 38 C 110 38, 107 41, 107 44 L 114 44 Z" fill="#ef4444" />
+
+    <!-- Door Line & Handle -->
+    <path d="M 44 32 L 44 48 M 72 32 L 72 48" stroke="#94a3b8" stroke-width="1" />
+    <rect x="47" y="35" width="6" height="1.8" rx="0.9" fill="#64748b" />
+    <rect x="75" y="35" width="6" height="1.8" rx="0.9" fill="#64748b" />
+
+    <!-- Wheels -->
+    <!-- Front Wheel -->
+    <g>
+      <circle cx="28" cy="50" r="10" fill="url(#wheelGrad)" stroke="#64748b" stroke-width="1.5" />
+      <circle cx="28" cy="50" r="5.5" fill="#e2e8f0" stroke="#475569" stroke-width="1" />
+      <circle cx="28" cy="50" r="2" fill="#0f172a" />
+    </g>
+
+    <!-- Rear Wheel -->
+    <g>
+      <circle cx="88" cy="50" r="10" fill="url(#wheelGrad)" stroke="#64748b" stroke-width="1.5" />
+      <circle cx="88" cy="50" r="5.5" fill="#e2e8f0" stroke="#475569" stroke-width="1" />
+      <circle cx="88" cy="50" r="2" fill="#0f172a" />
+    </g>
+  </g>
+</svg>

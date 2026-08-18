@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 70" width="100%" height="100%">
+  <defs>
+    <linearGradient id="autoTop" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#facc15"/>
+      <stop offset="100%" stop-color="#eab308"/>
+    </linearGradient>
+    <linearGradient id="autoBottom" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#15803d"/>
+      <stop offset="100%" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="autoGlass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <filter id="autoShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Ground Shadow -->
+  <ellipse cx="60" cy="58" rx="46" ry="6" fill="#000000" opacity="0.2" />
+
+  <!-- Auto Rickshaw Group -->
+  <g filter="url(#autoShadow)">
+    <!-- Cabin Roof (Yellow) -->
+    <path d="M 20 28 C 20 18, 30 14, 52 14 L 80 14 C 92 14, 100 24, 104 36 L 14 36 C 14 30, 16 28, 20 28 Z" fill="url(#autoTop)" stroke="#ca8a04" stroke-width="0.8" />
+
+    <!-- Windshield & Side Openings -->
+    <!-- Front Windshield -->
+    <path d="M 80 17 L 98 34 L 84 34 L 74 17 Z" fill="url(#autoGlass)" opacity="0.9" />
+    <!-- Passenger Opening -->
+    <path d="M 28 20 L 68 20 L 68 35 L 28 35 Z" fill="#1e293b" opacity="0.75" />
+    <!-- Pillars -->
+    <line x1="72" y1="14" x2="72" y2="36" stroke="#ca8a04" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Lower Body (Green) -->
+    <path d="M 14 36 L 104 36 C 106 42, 102 48, 92 48 L 18 48 C 12 48, 12 42, 14 36 Z" fill="url(#autoBottom)" stroke="#14532d" stroke-width="0.8" />
+
+    <!-- Yellow Accent Stripe -->
+    <rect x="14" y="37" width="90" height="2" fill="#fde047" opacity="0.9" />
+
+    <!-- Headlight -->
+    <path d="M 104 40 C 107 40, 109 42, 109 44 L 104 44 Z" fill="#fbbf24" />
+    <!-- Taillight -->
+    <rect x="12" y="39" width="3" height="5" rx="1" fill="#ef4444" />
+
+    <!-- Front Wheel -->
+    <g>
+      <circle cx="94" cy="50" r="10" fill="#1e293b" stroke="#64748b" stroke-width="1.5" />
+      <circle cx="94" cy="50" r="5" fill="#e2e8f0" stroke="#475569" stroke-width="1" />
+      <circle cx="94" cy="50" r="2" fill="#0f172a" />
+      <!-- Mudguard -->
+      <path d="M 84 48 C 84 42, 102 42, 104 48" fill="none" stroke="#166534" stroke-width="3" stroke-linecap="round" />
+    </g>
+
+    <!-- Rear Wheel -->
+    <g>
+      <circle cx="34" cy="50" r="10" fill="#1e293b" stroke="#64748b" stroke-width="1.5" />
+      <circle cx="34" cy="50" r="5" fill="#e2e8f0" stroke="#475569" stroke-width="1" />
+      <circle cx="34" cy="50" r="2" fill="#0f172a" />
+      <!-- Mudguard -->
+      <path d="M 24 48 C 24 42, 42 42, 44 48" fill="none" stroke="#166534" stroke-width="3" stroke-linecap="round" />
+    </g>
+  </g>
+</svg>

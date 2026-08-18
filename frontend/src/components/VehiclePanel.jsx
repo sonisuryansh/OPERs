@@ -1,47 +1,77 @@
 import React from 'react'
+import carImg from '../assets/car.svg'
+import motoImg from '../assets/moto.svg'
+import autoImg from '../assets/auto.svg'
 
 const VehiclePanel = (props) => {
     return (
         <div>
             <h5 className='p-1 text-center w-[93%] absolute top-0' onClick={() => {
                 props.setVehiclePanel(false)
-            }}><i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i></h5>
-            <h3 className='text-2xl font-semibold mb-5'>Choose a Vehicle</h3>
-            <div onClick={() => {
-                props.setConfirmRidePanel(true)
-                props.selectVehicle('car')
-            }} className='flex border-2 active:border-black mb-2 rounded-xl w-full p-3 items-center justify-between cursor-pointer hover:bg-gray-50 transition'>
-                <img className='h-10' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="OPERs Go" />
-                <div className='ml-2 w-1/2'>
-                    <h4 className='font-medium text-base text-gray-900'>OPERs Go <span><i className="ri-user-3-fill"></i>4</span></h4>
-                    <h5 className='font-medium text-sm text-gray-700'>2 mins away </h5>
-                    <p className='font-normal text-xs text-gray-600'>Affordable, compact rides</p>
+            }}><i className="text-3xl text-gray-200 ri-arrow-down-wide-line cursor-pointer"></i></h5>
+            <h3 className='text-2xl font-bold mb-5 text-gray-900'>Choose a Vehicle</h3>
+
+            {/* OPERs Go (Car) */}
+            <div 
+                onClick={() => {
+                    props.setConfirmRidePanel(true)
+                    props.selectVehicle('car')
+                }} 
+                className='flex border-2 border-gray-200 active:border-black hover:border-gray-900 mb-3 rounded-2xl w-full p-3.5 items-center justify-between cursor-pointer hover:bg-gray-50 transition shadow-sm'
+            >
+                <div className='w-16 h-12 flex items-center justify-center flex-shrink-0'>
+                    <img className='h-11 object-contain drop-shadow-sm' src={carImg} alt="OPERs Go" />
                 </div>
-                <h2 className='text-lg font-semibold text-gray-900'>₹{props.fare.car}</h2>
+                <div className='ml-3 flex-1'>
+                    <h4 className='font-bold text-base text-gray-900 flex items-center gap-1.5'>
+                        OPERs Go <span className='text-xs font-semibold text-gray-600 bg-gray-100 px-1.5 py-0.5 rounded-md flex items-center gap-0.5'><i className="ri-user-3-fill text-[11px]"></i>4</span>
+                    </h4>
+                    <h5 className='font-semibold text-xs text-gray-700 mt-0.5'>2 mins away</h5>
+                    <p className='text-xs text-gray-500'>Affordable, compact rides</p>
+                </div>
+                <h2 className='text-xl font-bold text-gray-900'>₹{props.fare.car || 50}</h2>
             </div>
-            <div onClick={() => {
-                props.setConfirmRidePanel(true)
-                props.selectVehicle('moto')
-            }} className='flex border-2 active:border-black mb-2 rounded-xl w-full p-3 items-center justify-between cursor-pointer hover:bg-gray-50 transition'>
-                <img className='h-10' src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_638,w_956/v1649231091/assets/2c/7fa194-c954-49b2-9c6d-a3b8601370f5/original/Uber_Moto_Orange_312x208_pixels_Mobile.png" alt="OPERs Moto" />
-                <div className='-ml-2 w-1/2'>
-                    <h4 className='font-medium text-base text-gray-900'>OPERs Moto <span><i className="ri-user-3-fill"></i>1</span></h4>
-                    <h5 className='font-medium text-sm text-gray-700'>3 mins away </h5>
-                    <p className='font-normal text-xs text-gray-600'>Affordable motorcycle rides</p>
+
+            {/* OPERs Moto */}
+            <div 
+                onClick={() => {
+                    props.setConfirmRidePanel(true)
+                    props.selectVehicle('moto')
+                }} 
+                className='flex border-2 border-gray-200 active:border-black hover:border-gray-900 mb-3 rounded-2xl w-full p-3.5 items-center justify-between cursor-pointer hover:bg-gray-50 transition shadow-sm'
+            >
+                <div className='w-16 h-12 flex items-center justify-center flex-shrink-0'>
+                    <img className='h-11 object-contain drop-shadow-sm' src={motoImg} alt="OPERs Moto" />
                 </div>
-                <h2 className='text-lg font-semibold text-gray-900'>₹{props.fare.moto}</h2>
+                <div className='ml-3 flex-1'>
+                    <h4 className='font-bold text-base text-gray-900 flex items-center gap-1.5'>
+                        OPERs Moto <span className='text-xs font-semibold text-gray-600 bg-gray-100 px-1.5 py-0.5 rounded-md flex items-center gap-0.5'><i className="ri-user-3-fill text-[11px]"></i>1</span>
+                    </h4>
+                    <h5 className='font-semibold text-xs text-gray-700 mt-0.5'>3 mins away</h5>
+                    <p className='text-xs text-gray-500'>Fast & affordable bike rides</p>
+                </div>
+                <h2 className='text-xl font-bold text-gray-900'>₹{props.fare.moto || 20}</h2>
             </div>
-            <div onClick={() => {
-                props.setConfirmRidePanel(true)
-                props.selectVehicle('auto')
-            }} className='flex border-2 active:border-black mb-2 rounded-xl w-full p-3 items-center justify-between cursor-pointer hover:bg-gray-50 transition'>
-                <img className='h-10' src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_368,w_552/v1648431773/assets/1d/db8c56-0204-4ce4-81ce-56a11a07fe98/original/Uber_Auto_558x372_pixels_Desktop.png" alt="OPERs Auto" />
-                <div className='ml-2 w-1/2'>
-                    <h4 className='font-medium text-base text-gray-900'>OPERs Auto <span><i className="ri-user-3-fill"></i>3</span></h4>
-                    <h5 className='font-medium text-sm text-gray-700'>3 mins away </h5>
-                    <p className='font-normal text-xs text-gray-600'>Affordable Auto rides</p>
+
+            {/* OPERs Auto */}
+            <div 
+                onClick={() => {
+                    props.setConfirmRidePanel(true)
+                    props.selectVehicle('auto')
+                }} 
+                className='flex border-2 border-gray-200 active:border-black hover:border-gray-900 mb-3 rounded-2xl w-full p-3.5 items-center justify-between cursor-pointer hover:bg-gray-50 transition shadow-sm'
+            >
+                <div className='w-16 h-12 flex items-center justify-center flex-shrink-0'>
+                    <img className='h-11 object-contain drop-shadow-sm' src={autoImg} alt="OPERs Auto" />
                 </div>
-                <h2 className='text-lg font-semibold text-gray-900'>₹{props.fare.auto}</h2>
+                <div className='ml-3 flex-1'>
+                    <h4 className='font-bold text-base text-gray-900 flex items-center gap-1.5'>
+                        OPERs Auto <span className='text-xs font-semibold text-gray-600 bg-gray-100 px-1.5 py-0.5 rounded-md flex items-center gap-0.5'><i className="ri-user-3-fill text-[11px]"></i>3</span>
+                    </h4>
+                    <h5 className='font-semibold text-xs text-gray-700 mt-0.5'>3 mins away</h5>
+                    <p className='text-xs text-gray-500'>Affordable, doorstep Auto rides</p>
+                </div>
+                <h2 className='text-xl font-bold text-gray-900'>₹{props.fare.auto || 30}</h2>
             </div>
         </div>
     )

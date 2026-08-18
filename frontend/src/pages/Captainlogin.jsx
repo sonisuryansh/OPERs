@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { CaptainDataContext } from '../context/CapatainContext'
@@ -7,29 +7,45 @@ import opersLogo from '../assets/OPERS.png'
 const Captainlogin = () => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
+  const [ errorMessage, setErrorMessage ] = useState('')
+  const [ isLoading, setIsLoading ] = useState(false)
 
-  const { captain, setCaptain } = React.useContext(CaptainDataContext)
+  const { captain, setCaptain } = useContext(CaptainDataContext)
   const navigate = useNavigate()
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const captain = {
-      email: email,
+    setErrorMessage('')
+    setIsLoading(true)
+
+    const captainData = {
+      email: email.trim().toLowerCase(),
       password
     }
 
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/login`, captain)
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/login`, captainData)
 
-    if (response.status === 200) {
-      const data = response.data
-      setCaptain(data.captain)
-      localStorage.setItem('token', data.token)
-      navigate('/captain-home')
+      if (response.status === 200) {
+        const data = response.data
+        setCaptain(data.captain)
+        localStorage.setItem('token', data.token)
+        navigate('/captain-home')
+      }
+    } catch (err) {
+      console.error('Captain login error:', err)
+      if (err.response?.data?.message) {
+        setErrorMessage(err.response.data.message)
+      } else if (err.response?.data?.errors?.length > 0) {
+        setErrorMessage(err.response.data.errors.map(e => e.msg).join(', '))
+      } else {
+        setErrorMessage('Failed to sign in as Captain. Please verify your credentials.')
+      }
+    } finally {
+      setIsLoading(false)
     }
-
-    setEmail('')
-    setPassword('')
   }
+
   const [ showGoogleModal, setShowGoogleModal ] = useState(false)
   const [ googleEmailInput, setGoogleEmailInput ] = useState('')
   const [ googleLoginLoading, setGoogleLoginLoading ] = useState(false)
@@ -38,6 +54,7 @@ const Captainlogin = () => {
     e.preventDefault();
     if (!googleEmailInput) return;
     setGoogleLoginLoading(true);
+    setErrorMessage('');
 
     try {
       const emailClean = googleEmailInput.trim().toLowerCase();
@@ -59,15 +76,7 @@ const Captainlogin = () => {
       }
     } catch (err) {
       console.error('Google captain login error:', err)
-      const fallbackCaptain = {
-        _id: `google_captain_${Date.now()}`,
-        fullname: { firstname: googleEmailInput.split('@')[0], lastname: 'Captain' },
-        email: googleEmailInput
-      }
-      setCaptain(fallbackCaptain)
-      localStorage.setItem('token', 'demo_google_captain_token')
-      setShowGoogleModal(false)
-      navigate('/captain-home')
+      setErrorMessage(err.response?.data?.message || 'Google authentication failed.')
     } finally {
       setGoogleLoginLoading(false)
     }
@@ -121,11 +130,28 @@ const Captainlogin = () => {
         </div>
       )}
 
-      <div className='bg-white h-screen sm:h-auto sm:min-h-[580px] w-full sm:max-w-md p-7 flex flex-col justify-between sm:rounded-3xl sm:shadow-2xl border-gray-200'>
+      <div className='bg-white min-h-screen sm:min-h-[580px] w-full sm:max-w-md p-7 flex flex-col justify-between sm:rounded-3xl sm:shadow-2xl border-gray-200 overflow-y-auto'>
         <div>
-          <div className='flex justify-center mb-6'>
+          <div className='flex justify-center mb-5'>
             <img className='w-28 drop-shadow-sm' src={opersLogo} alt="OPERs Captain Logo" />
           </div>
+
+          {errorMessage && (
+            <div className='mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl flex items-start gap-2 animate-fadeIn'>
+              <i className="ri-error-warning-line text-lg mt-0.5 flex-shrink-0 text-red-500"></i>
+              <div className='flex-1'>
+                <span>{errorMessage}</span>
+                {errorMessage.toLowerCase().includes('not found') || errorMessage.toLowerCase().includes('invalid') ? (
+                  <div className='mt-1'>
+                    <Link to='/captain-signup' className='text-blue-600 font-semibold underline'>
+                      Don't have an account? Register as Captain
+                    </Link>
+                  </div>
+                ) : null}
+              </div>
+              <button onClick={() => setErrorMessage('')} className='text-gray-400 hover:text-gray-600'>&times;</button>
+            </div>
+          )}
 
           <button
             type="button"
@@ -147,45 +173,63 @@ const Captainlogin = () => {
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
 
-          <form onSubmit={(e) => {
-            submitHandler(e)
-          }}>
-            <h3 className='text-lg font-medium mb-2 text-gray-900'>What's your email</h3>
+          <form onSubmit={submitHandler}>
+            <h3 className='text-base font-semibold mb-2 text-gray-900'>What's your email</h3>
             <input
               required
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value)
-              }}
-              className='bg-[#eeeeee] mb-6 rounded-xl px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black w-full text-lg placeholder:text-base transition'
+              onChange={(e) => setEmail(e.target.value)}
+              className='bg-[#eeeeee] mb-4 rounded-xl px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black w-full text-base placeholder:text-gray-400 transition'
               type="email"
-              placeholder='email@example.com'
+              placeholder='captain@example.com'
             />
 
-            <h3 className='text-lg font-medium mb-2 text-gray-900'>Enter Password</h3>
-
+            <h3 className='text-base font-semibold mb-2 text-gray-900'>Enter Password</h3>
             <input
-              className='bg-[#eeeeee] mb-6 rounded-xl px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black w-full text-lg placeholder:text-base transition'
+              className='bg-[#eeeeee] mb-5 rounded-xl px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black w-full text-base placeholder:text-gray-400 transition'
               value={password}
-              onChange={(e) => {
-                setPassword(e.target.value)
-              }}
-              required type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              type="password"
               placeholder='password'
             />
 
             <button
-              className='bg-[#111] hover:bg-gray-800 text-white font-semibold mb-4 rounded-xl px-4 py-3 w-full text-lg shadow-md transition duration-200'
-            >Login</button>
-
+              type="submit"
+              disabled={isLoading}
+              className='bg-[#111] hover:bg-gray-800 disabled:bg-gray-500 text-white font-semibold mb-4 rounded-xl px-4 py-3 w-full text-base shadow-md transition duration-200 flex items-center justify-center gap-2'
+            >
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                  </svg>
+                  <span>Logging in...</span>
+                </>
+              ) : (
+                'Login'
+              )}
+            </button>
           </form>
-          <p className='text-center text-gray-600'>Join a fleet? <Link to='/captain-signup' className='text-blue-600 font-medium hover:underline'>Register as a Captain</Link></p>
+
+          <div className='text-center py-2'>
+            <p className='text-gray-600 text-sm'>
+              Join a fleet?{' '}
+              <Link to='/captain-signup' className='text-blue-600 font-bold hover:underline ml-1 inline-flex items-center gap-1'>
+                Register as Captain &rarr;
+              </Link>
+            </p>
+          </div>
         </div>
-        <div className='mt-6'>
+
+        <div className='mt-6 pt-4 border-t border-gray-100'>
           <Link
             to='/login'
-            className='bg-[#d5622d] hover:bg-orange-700 flex items-center justify-center text-white font-semibold rounded-xl px-4 py-3 w-full text-lg shadow-md transition duration-200'
-          >Sign in as User</Link>
+            className='bg-[#d5622d] hover:bg-orange-700 flex items-center justify-center text-white font-semibold rounded-xl px-4 py-3 w-full text-base shadow-md transition duration-200'
+          >
+            Sign in as User
+          </Link>
         </div>
       </div>
     </div>

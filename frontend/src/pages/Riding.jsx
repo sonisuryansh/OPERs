@@ -4,12 +4,16 @@ import { useEffect, useContext } from 'react'
 import { SocketContext } from '../context/SocketContext'
 import { useNavigate } from 'react-router-dom'
 import LiveTracking from '../components/LiveTracking'
+import { getVehicleImage } from '../assets/vehicles'
 
 const Riding = () => {
     const location = useLocation()
     const { ride } = location.state || {} // Retrieve ride data
     const { socket } = useContext(SocketContext)
     const navigate = useNavigate()
+
+    const vehicleType = ride?.captain?.vehicle?.vehicleType || 'car'
+    const vehicleIcon = getVehicleImage(vehicleType)
 
     useEffect(() => {
         if (!socket) return;
@@ -33,12 +37,11 @@ const Riding = () => {
             </div>
             <div className='fixed bottom-0 left-0 w-full md:w-[420px] md:left-6 md:bottom-6 z-10 p-5 bg-white md:rounded-2xl md:shadow-2xl md:border md:border-gray-200 overflow-y-auto max-h-[90vh]'>
                 <div className='flex items-center justify-between'>
-                    <img className='h-12' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="Vehicle" />
+                    <img className='h-14 object-contain drop-shadow-sm' src={vehicleIcon} alt="Vehicle" />
                     <div className='text-right'>
-                        <h2 className='text-lg font-medium capitalize text-gray-900'>{ride?.captain.fullname.firstname}</h2>
-                        <h4 className='text-xl font-semibold -mt-1 -mb-1 text-gray-900'>{ride?.captain.vehicle.plate}</h4>
-                        <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
-
+                        <h2 className='text-lg font-bold capitalize text-gray-900'>{ride?.captain.fullname.firstname}</h2>
+                        <h4 className='text-xl font-bold -mt-1 -mb-1 text-gray-900'>{ride?.captain.vehicle.plate}</h4>
+                        <p className='text-sm text-gray-600 capitalize'>{ride?.captain?.vehicle?.color} {vehicleType}</p>
                     </div>
                 </div>
 
